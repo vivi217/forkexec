@@ -1,0 +1,9 @@
+# github.com/docker/docker v20.10.7+incompatible
+## explicit
+github.com/docker/docker/pkg/reexec
+# golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c
+## explicit
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/unix
+# gotest.tools/v3 v3.0.3
+## explicit
