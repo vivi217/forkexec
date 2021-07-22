@@ -61,6 +61,10 @@ func StartWorker() []int{
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		if err := cmd.Start(); err != nil {
+			err := CloseFD(fdw)
+			if err != nil {
+				log.Printf("close fdw error, %s", err)
+			}
 			log.Panicf("failed to run command: %s", err)
 		}
 		log.Println(cmd.Process.Pid)
@@ -92,6 +96,16 @@ func SendToWorker(fdw []int) error {
 	}
 }
 
+func CloseFD(fdw []int) error {
+	for _, fd:= range fdw {
+		err := syscall.Close(fd)
+		if err != nil {
+			log.Printf("close fd error,%s", err)
+		}
+	}
+	return nil
+}
+
 func main() {
 	log.Printf("main start, os.Args = %+v\n", os.Args)
 	//启动子进程,拿到与子进程通信的fd集合
@@ -100,6 +114,10 @@ func main() {
 	err := SendToWorker(fdw)
 	if err != nil {
 		log.Printf("main send msg error")
+	}
+	err = CloseFD(fdw)
+	if err != nil {
+		log.Printf("close fds error, %s", err)
 	}
 	log.Println("main exit")
 }
