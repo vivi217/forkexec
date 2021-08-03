@@ -14,7 +14,7 @@ import (
 const MaxSize = 102400
 //Header 固定长度为8
 type Header struct {
-	DataLen int  //代码msg的长度
+	DataLen int  //msg的长度
 	MsgType int //msg类型,用来定义是什么类型的消息
 }
 //Msg 消息体
