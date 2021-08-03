@@ -11,9 +11,9 @@ import (
 	"time"
 )
 
-var NUM = 0
+var NUM = 3
 
-const PROCESSORS = 4
+const PROCESSORS = 1
 
 func init() {
 	log.Printf("init start, os.Args = %+v\n", os.Args)
@@ -106,6 +106,8 @@ func CloseFD(fdw []int) error {
 	return nil
 }
 
+
+
 func main() {
 	log.Printf("main start, os.Args = %+v\n", os.Args)
 	//启动子进程,拿到与子进程通信的fd集合
@@ -115,6 +117,7 @@ func main() {
 	if err != nil {
 		log.Printf("main send msg error")
 	}
+	//关闭fs
 	err = CloseFD(fdw)
 	if err != nil {
 		log.Printf("close fds error, %s", err)
